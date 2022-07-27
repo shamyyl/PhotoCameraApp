@@ -4,11 +4,7 @@ import fs from 'react-native-fs';
 import {decode} from 'base64-arraybuffer';
 
 import {Camera, PhotoFile, useCameraDevices} from 'react-native-vision-camera';
-import {
-  ListObjectsV2Command,
-  PutObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import {PutObjectCommand, S3Client} from '@aws-sdk/client-s3';
 // import {S3} from 'aws-sdk';
 
 import 'react-native-url-polyfill/auto';
@@ -75,7 +71,7 @@ export const HomeScreen = () => {
     setTimeout(async () => {
       if (photo) {
         const file = await fs.readFile(`file://${photo.path}`, 'base64');
-        const randomHash = 'asdcsdadasdsa';
+        const randomHash = 'testhash';
         try {
           const res = await s3.send(
             new PutObjectCommand({
@@ -86,11 +82,6 @@ export const HomeScreen = () => {
               ACL: 'public-read',
             }),
           );
-          // const res = await s3.send(
-          //   new ListObjectsV2Command({
-          //     Bucket: 'inperium-s3-ui-marketing-us-1-dev-qa',
-          //   }),
-          // );
           // const res = s3.upload({
           //   Bucket: 'ShamilTest',
           //   Key: `photo-${randomHash}.png`,
